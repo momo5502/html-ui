@@ -40,7 +40,7 @@ namespace detail
 			else
 			{
 				auto ret = fun(resolve_html_value<std::remove_cv_t<std::remove_reference_t<Args>>>(args, index)...);
-				return html_value(ret);
+				return html_value(std::move(ret));
 			}
 		};
 	}
