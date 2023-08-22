@@ -1,5 +1,12 @@
-<h1 align="center">HTML-UI
+<h1 align="center">
+	HTML-UI
+	<br>
+	<a href="https://github.com/momo5502/html-ui/actions"><img src="https://img.shields.io/github/actions/workflow/status/momo5502/html-ui/build.yml?branch=main&label=Build&logo=github"/></a>
+	<a href="https://github.com/momo5502/html-ui/issues"><img src="https://img.shields.io/github/issues/momo5502/html-ui"/></a>
+	<img src="https://img.shields.io/badge/C++-17-green.svg"/>
 </h1>
+
+
 
 Internet Explorer 11 based HTML UI component for C++.
 
