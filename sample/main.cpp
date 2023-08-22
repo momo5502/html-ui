@@ -29,6 +29,7 @@ int APIENTRY WinMain(HINSTANCE, HINSTANCE, PSTR, int)
         }
 
         button {
+            margin: 5px;
             display: inline-block;
             outline: none;
             cursor: pointer;
@@ -51,7 +52,8 @@ int APIENTRY WinMain(HINSTANCE, HINSTANCE, PSTR, int)
             height: 48px;
         }
 
-        button:hover {
+        button:hover,
+        button.active {
             color: #fff;
             background-color: rgb(57, 57, 57);
         }
@@ -62,16 +64,25 @@ int APIENTRY WinMain(HINSTANCE, HINSTANCE, PSTR, int)
     <center>
         <h1>HTML-UI</h1>
         <br>
-        <button onclick="window.external.testFunc('hello world', 1234)">Button</button>
+        <button onclick="window.external.rawFunction('hello world', 1234)" class="active">Button</button>
+		<button onclick="window.external.showMessageBox('Test', 'Hello World')">Button 2</button>
     </center>
 </body>
 
 </html>
 )code");
 
-	window.register_handler("testFunc", [](const std::string& str, uint64_t val)
+	window.register_handler("showMessageBox", [](const std::string& title, const std::string& message) -> std::string
 	{
-			MessageBoxA(0, str.data(), 0, 0);
+		MessageBoxA(nullptr, message.data(), title.data(), MB_ICONINFORMATION);
+		return "OK";
+	});
+
+	window.register_raw_handler("rawFunction", [&window](const std::vector<momo::html_value>& arguments) -> momo::html_value
+	{
+		window.evaluate(
+			"window.external.showMessageBox('Hello', '" + std::to_string(arguments.size()) + " arguments passed')");
+        return {};
 	});
 
 	window.show();
