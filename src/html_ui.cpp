@@ -26,9 +26,9 @@ namespace momo
 		return this->window_->get_html_frame().load_html(html);
 	}
 
-	void html_ui::show() const
+	void html_ui::show_windows()
 	{
-		this->window_->get_window().run();
+		window::run();
 	}
 
 	html_value html_ui::evaluate(const std::string& javascript) const

@@ -88,7 +88,6 @@ namespace momo
 		bool load_url(const std::string& url);
 		bool load_html(const std::string& html);
 
-		void show() const;
 		html_value evaluate(const std::string& javascript) const;
 
 		void register_raw_handler(const std::string& name, detail::handler_type handler);
@@ -106,6 +105,8 @@ namespace momo
 			using FunctionType = Return(*)(Args...);
 			this->register_raw_handler(name, detail::callback_creator<FunctionType>::create(func));
 		}
+
+		static void show_windows();
 
 	private:
 		std::unique_ptr<html_window> window_;
