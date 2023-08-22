@@ -64,10 +64,10 @@ If the arguments mismatch, an exception is thrown.
 Alternatively, a raw handler can be registered, which receives all arguments as vector:
 
 ```c++
-	window.register_raw_handler("rawFunction", [&window](const std::vector<momo::html_value>& arguments)
-        -> momo::html_value
-	{
-		// ...
-		return {};
-	});
+window.register_raw_handler("rawFunction", [&window](const std::vector<momo::html_value>& arguments)
+	-> momo::html_value
+{
+	// ...
+	return {};
+});
 ```
