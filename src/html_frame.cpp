@@ -288,7 +288,7 @@ namespace momo
 	}
 
 	HRESULT html_frame::GetIDsOfNames(const IID& /*riid*/, LPOLESTR* rgszNames, UINT cNames, LCID /*lcid*/,
-		DISPID* rgDispId)
+	                                  DISPID* rgDispId)
 	{
 		for (unsigned int i = 0; i < cNames; ++i)
 		{
@@ -305,8 +305,8 @@ namespace momo
 	}
 
 	HRESULT html_frame::Invoke(const DISPID dispIdMember, const IID& /*riid*/, LCID /*lcid*/, WORD /*wFlags*/,
-		DISPPARAMS* pDispParams,
-		VARIANT* pVarResult, EXCEPINFO* /*pExcepInfo*/, UINT* /*puArgErr*/)
+	                           DISPPARAMS* pDispParams,
+	                           VARIANT* pVarResult, EXCEPINFO* /*pExcepInfo*/, UINT* /*puArgErr*/)
 	{
 		std::vector<html_value> params{};
 		for (auto i = pDispParams->cArgs; i > 0; --i)

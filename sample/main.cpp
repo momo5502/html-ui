@@ -2,7 +2,7 @@
 
 void create_window_1(momo::html_ui& window)
 {
-    window.load_html(R"code(
+	window.load_html(R"code(
 <!DOCTYPE html>
 <html>
 
@@ -70,24 +70,26 @@ void create_window_1(momo::html_ui& window)
 </html>
 )code");
 
-    window.register_handler("showMessageBox", [](const std::string& title, const std::string& message) -> std::string
-        {
-            MessageBoxA(nullptr, message.data(), title.data(), MB_ICONINFORMATION);
-            return "OK";
-        });
+	window.register_handler("showMessageBox", [](const std::string& title, const std::string& message) -> std::string
+	{
+		MessageBoxA(nullptr, message.data(), title.data(), MB_ICONINFORMATION);
+		return "OK";
+	});
 
-    window.register_raw_handler("rawFunction", [&window](const std::vector<momo::html_value>& arguments) -> momo::html_value
-        {
-            window.evaluate(
-                "window.external.showMessageBox('Hello', '" + std::to_string(arguments.size()) + " arguments passed')");
-            return {};
-        });
+	window.register_raw_handler("rawFunction",
+	                            [&window](const std::vector<momo::html_value>& arguments) -> momo::html_value
+	                            {
+		                            window.evaluate(
+			                            "window.external.showMessageBox('Hello', '" + std::to_string(arguments.size()) +
+			                            " arguments passed')");
+		                            return {};
+	                            });
 }
 
 
 void create_window_2(momo::html_ui& window)
 {
-    window.load_html(R"code(
+	window.load_html(R"code(
 <!DOCTYPE html>
 <html>
 
@@ -149,22 +151,21 @@ void create_window_2(momo::html_ui& window)
 </html>
 )code");
 
-    window.register_handler("showMessageBox", [](const std::string& title, const std::string& message)
-        {
-            MessageBoxA(nullptr, message.data(), title.data(), MB_ICONINFORMATION);
-        });
+	window.register_handler("showMessageBox", [](const std::string& title, const std::string& message)
+	{
+		MessageBoxA(nullptr, message.data(), title.data(), MB_ICONINFORMATION);
+	});
 }
-
 
 int APIENTRY WinMain(HINSTANCE, HINSTANCE, PSTR, int)
 {
-    momo::html_ui window1("Test", 500, 300);
-    momo::html_ui window2("Test2", 500, 300);
+	momo::html_ui window1("Test", 500, 300);
+	momo::html_ui window2("Test2", 500, 300);
 
-    create_window_1(window1);
-    create_window_2(window2);
+	create_window_1(window1);
+	create_window_2(window2);
 
-    momo::html_ui::show_windows();
+	momo::html_ui::show_windows();
 
 	return 0;
 }

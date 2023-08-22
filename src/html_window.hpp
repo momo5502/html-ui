@@ -9,7 +9,7 @@ namespace momo
 	{
 	public:
 		html_window(const std::string& title, int width, int height,
-			long flags = (WS_OVERLAPPEDWINDOW & ~(WS_THICKFRAME | WS_MAXIMIZEBOX)));
+		            long flags = (WS_OVERLAPPEDWINDOW & ~(WS_THICKFRAME | WS_MAXIMIZEBOX)));
 
 		~html_window() = default;
 

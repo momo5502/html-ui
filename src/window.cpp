@@ -18,8 +18,8 @@ namespace momo
 		{
 			auto* user32 = GetModuleHandleA("user32.dll");
 			const auto get_dpi = user32
-				? reinterpret_cast<UINT(WINAPI*)(HWND)>(GetProcAddress(user32, "GetDpiForWindow"))
-				: nullptr;
+				                     ? reinterpret_cast<UINT(WINAPI*)(HWND)>(GetProcAddress(user32, "GetDpiForWindow"))
+				                     : nullptr;
 
 			if (!get_dpi)
 			{
@@ -31,8 +31,8 @@ namespace momo
 	}
 
 	window::window(const std::string& title, const int width, const int height,
-		std::function<std::optional<LRESULT>(window*, UINT, WPARAM, LPARAM)> callback,
-		const long flags)
+	               std::function<std::optional<LRESULT>(window*, UINT, WPARAM, LPARAM)> callback,
+	               const long flags)
 		: callback_(std::move(callback))
 	{
 		ZeroMemory(&this->wc_, sizeof(this->wc_));
@@ -55,12 +55,13 @@ namespace momo
 
 		++window_count;
 
-		this->handle_ = CreateWindowExA(NULL, this->wc_.lpszClassName, title.data(), flags, x, y, width, height, nullptr,
-			nullptr, this->wc_.hInstance, this);
+		this->handle_ = CreateWindowExA(NULL, this->wc_.lpszClassName, title.data(), flags, x, y, width, height,
+		                                nullptr,
+		                                nullptr, this->wc_.hInstance, this);
 
 		constexpr BOOL value = TRUE;
 		DwmSetWindowAttribute(this->handle_,
-			DWMWA_USE_IMMERSIVE_DARK_MODE, &value, sizeof(value));
+		                      DWMWA_USE_IMMERSIVE_DARK_MODE, &value, sizeof(value));
 
 		SendMessageA(this->handle_, WM_DPICHANGED, 0, 0);
 		ShowWindow(this->handle_, SW_SHOW);
@@ -107,8 +108,9 @@ namespace momo
 				const auto width = rect.right - rect.left;
 				const auto height = rect.bottom - rect.top;
 
-				MoveWindow(*this, rect.left, rect.top, static_cast<int>(width * scale), static_cast<int>(height * scale),
-					TRUE);
+				MoveWindow(*this, rect.left, rect.top, static_cast<int>(width * scale),
+				           static_cast<int>(height * scale),
+				           TRUE);
 			}
 		}
 
@@ -135,7 +137,7 @@ namespace momo
 	}
 
 	LRESULT CALLBACK window::static_processor(const HWND hwnd, const UINT message, const WPARAM w_param,
-		const LPARAM l_param)
+	                                          const LPARAM l_param)
 	{
 		if (message == WM_CREATE)
 		{

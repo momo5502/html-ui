@@ -27,8 +27,8 @@ namespace momo
 		}
 
 		HRESULT STDMETHODCALLTYPE GetWindowContext(LPOLEINPLACEFRAME* lplpFrame, LPOLEINPLACEUIWINDOW* lplpDoc,
-			const LPRECT lprcPosRect, const LPRECT lprcClipRect,
-			const LPOLEINPLACEFRAMEINFO lpFrameInfo) override
+		                                           const LPRECT lprcPosRect, const LPRECT lprcClipRect,
+		                                           const LPOLEINPLACEFRAMEINFO lpFrameInfo) override
 		{
 			ZeroMemory(lprcPosRect, sizeof(*lprcPosRect));
 			ZeroMemory(lprcClipRect, sizeof(*lprcClipRect));

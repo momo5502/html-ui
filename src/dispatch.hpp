@@ -15,6 +15,5 @@ namespace momo
 		{
 			return S_FALSE;
 		}
-
 	};
 }

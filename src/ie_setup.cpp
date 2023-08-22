@@ -17,7 +17,7 @@ namespace momo
 		std::string read_file(const std::filesystem::path& filename)
 		{
 			std::ifstream ifs(filename, std::ios::binary);
-			return { std::istreambuf_iterator<char>(ifs), std::istreambuf_iterator<char>() };
+			return {std::istreambuf_iterator<char>(ifs), std::istreambuf_iterator<char>()};
 		}
 
 		PIMAGE_NT_HEADERS get_nt_headers(const HMODULE module)
@@ -66,8 +66,8 @@ namespace momo
 		}
 
 		void** find_iat_entry(PIMAGE_IMPORT_DESCRIPTOR import_descriptor, uint8_t* module_ptr,
-			const std::string& target_module_name, FARPROC target_function,
-			const HMODULE other_module)
+		                      const std::string& target_module_name, FARPROC target_function,
+		                      const HMODULE other_module)
 		{
 			for (; import_descriptor->Name; ++import_descriptor)
 			{
@@ -177,7 +177,7 @@ namespace momo
 		}
 
 		std::pair<size_t, GUID*> find_url_mon_browser_emulator_guid(const HMODULE mapped_urlmon,
-			const std::string& urlmon_data)
+		                                                            const std::string& urlmon_data)
 		{
 			auto* file_lib = reinterpret_cast<HMODULE>(const_cast<char*>(urlmon_data.data()));
 
@@ -185,7 +185,7 @@ namespace momo
 				reinterpret_cast<const char*>(&g_browser_emulation_guid), sizeof(g_browser_emulation_guid)));
 			if (guid_pos == std::string::npos)
 			{
-				return { 0, nullptr };
+				return {0, nullptr};
 			}
 
 			const auto guid_rva = translate_file_offset_to_rva(file_lib, guid_pos);
@@ -193,10 +193,10 @@ namespace momo
 
 			if (!IsEqualGUID(*guid_va, g_browser_emulation_guid))
 			{
-				return { 0, nullptr };
+				return {0, nullptr};
 			}
 
-			return { guid_rva, guid_va };
+			return {guid_rva, guid_va};
 		}
 
 		size_t find_url_mon_browser_emulator_guid_pointer_rva(const std::string& urlmon_data, const size_t guid_rva)
@@ -279,9 +279,9 @@ namespace momo
 
 			{
 				const auto set_dpi = user32
-					? reinterpret_cast<BOOL(WINAPI*)(DPI_AWARENESS_CONTEXT)>(
-						GetProcAddress(user32, "SetProcessDpiAwarenessContext"))
-					: nullptr;
+					                     ? reinterpret_cast<BOOL(WINAPI*)(DPI_AWARENESS_CONTEXT)>(
+						                     GetProcAddress(user32, "SetProcessDpiAwarenessContext"))
+					                     : nullptr;
 				if (set_dpi)
 				{
 					set_dpi(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
@@ -292,9 +292,9 @@ namespace momo
 			{
 				const auto shcore = LoadLibraryA("shcore.dll");
 				const auto set_dpi = shcore
-					? reinterpret_cast<HRESULT(WINAPI*)(PROCESS_DPI_AWARENESS)>(
-						GetProcAddress(shcore, "SetProcessDpiAwareness"))
-					: nullptr;
+					                     ? reinterpret_cast<HRESULT(WINAPI*)(PROCESS_DPI_AWARENESS)>(
+						                     GetProcAddress(shcore, "SetProcessDpiAwareness"))
+					                     : nullptr;
 				if (set_dpi)
 				{
 					set_dpi(PROCESS_PER_MONITOR_DPI_AWARE);
@@ -305,8 +305,8 @@ namespace momo
 			{
 				const auto set_dpi =
 					user32
-					? reinterpret_cast<BOOL(WINAPI*)()>(GetProcAddress(user32, "SetProcessDPIAware"))
-					: nullptr;
+						? reinterpret_cast<BOOL(WINAPI*)()>(GetProcAddress(user32, "SetProcessDPIAware"))
+						: nullptr;
 				if (set_dpi)
 				{
 					set_dpi();

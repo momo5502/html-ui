@@ -19,12 +19,12 @@ namespace momo
 {
 	class html_frame
 		: doc_host_ui_handler
-		, service_provider
-		, internet_security_manager
-		, ole_client_site
-		, ole_in_place_frame
-		, ole_in_place_site
-		, dispatch
+		  , service_provider
+		  , internet_security_manager
+		  , ole_client_site
+		  , ole_in_place_frame
+		  , ole_in_place_site
+		  , dispatch
 	{
 	public:
 		html_frame();
@@ -82,10 +82,12 @@ namespace momo
 			return 1;
 		}
 
-		HRESULT STDMETHODCALLTYPE GetIDsOfNames(REFIID riid, LPOLESTR* rgszNames, UINT cNames, LCID lcid, DISPID* rgDispId)
-			override;
-		HRESULT STDMETHODCALLTYPE Invoke(DISPID dispIdMember, REFIID riid, LCID lcid, WORD wFlags, DISPPARAMS* pDispParams,
-			VARIANT* pVarResult, EXCEPINFO* pExcepInfo, UINT* puArgErr) override;
+		HRESULT STDMETHODCALLTYPE GetIDsOfNames(REFIID riid, LPOLESTR* rgszNames, UINT cNames, LCID lcid,
+		                                        DISPID* rgDispId)
+		override;
+		HRESULT STDMETHODCALLTYPE Invoke(DISPID dispIdMember, REFIID riid, LCID lcid, WORD wFlags,
+		                                 DISPPARAMS* pDispParams,
+		                                 VARIANT* pVarResult, EXCEPINFO* pExcepInfo, UINT* puArgErr) override;
 
 
 		HRESULT STDMETHODCALLTYPE GetExternal(IDispatch** ppDispatch) override;

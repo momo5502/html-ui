@@ -4,7 +4,7 @@
 
 namespace momo
 {
-	momo::html_value::html_value(const html_value& obj)
+	html_value::html_value(const html_value& obj)
 	{
 		this->operator=(obj);
 	}
@@ -281,7 +281,7 @@ namespace momo
 
 #pragma warning(push)
 #pragma warning(disable : 4244)
-		return { wide_string.begin(), wide_string.end() };
+		return {wide_string.begin(), wide_string.end()};
 #pragma warning(pop)
 	}
 
