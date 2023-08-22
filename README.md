@@ -1,21 +1,19 @@
-[![build](https://img.shields.io/github/actions/workflow/status/momo5502/html-ui/build.yml?branch=main&label=Build&logo=github)](https://github.com/momo5502/html-ui/actions)
-[![bugs](https://img.shields.io/github/issues/momo5502/html-ui/bug?label=Bugs)](https://github.com/momo5502/html-ui/issues?q=is%3Aissue+is%3Aopen+label%3Abug)
-
-# HTML-UI
+<h1 align="center">HTML-UI
+</h1>
 
 Internet Explorer 11 based HTML UI component for C++.
 
-Albeit not being extremely powerful and feature rich, due to employing Internet Explorer 11, html-ui offers a flexible and lightweight HTML user interface.
-Ideal for small, yet elegant user interfaces , like launchers.
+Due to employing Internet Explorer 11, html-ui offers a flexible and lightweight HTML user interface.
+It is ideal for small, yet elegant user interfaces.
 
 No external dependencies are required resulting in minuscule binary sizes.
 
 ## Preview
 
 <p align="center">
-<img src="./sample/preview.jpg" />
+<img width="400px" src="./sample/preview.jpg" />
 &nbsp;
-<img src="./sample/preview-2.jpg" />
+<img width="400px" src="./sample/preview-2.jpg" />
 </p>
 
 ## Usage
@@ -59,7 +57,8 @@ If the arguments mismatch, an exception is thrown.
 Alternatively, a raw handler can be registered, which receives all arguments as vector:
 
 ```c++
-	window.register_raw_handler("rawFunction", [&window](const std::vector<momo::html_value>& arguments) -> momo::html_value
+	window.register_raw_handler("rawFunction", [&window](const std::vector<momo::html_value>& arguments)
+        -> momo::html_value
 	{
 		// ...
 		return {};
