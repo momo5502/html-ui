@@ -1,3 +1,6 @@
 #pragma once
 
-void setup_internet_explorer();
+namespace momo
+{
+	void setup_internet_explorer();
+}

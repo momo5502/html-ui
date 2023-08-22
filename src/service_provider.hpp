@@ -2,20 +2,19 @@
 
 #include "win_include.hpp"
 
-struct service_provider : public IServiceProvider
+namespace momo
 {
-	HRESULT STDMETHODCALLTYPE QueryService(
-		REFGUID guidService,
-		REFIID riid,
-		void** ppvObject) override
+	struct service_provider : public IServiceProvider
 	{
-		if (IsEqualGUID(riid, IID_IInternetSecurityManager))
+		HRESULT STDMETHODCALLTYPE QueryService(			REFGUID guidService,			REFIID riid,			void** ppvObject) override
 		{
-			return QueryInterface(riid, ppvObject);
+			if (IsEqualGUID(riid, IID_IInternetSecurityManager))
+			{
+				return QueryInterface(riid, ppvObject);
+			}
+
+			*ppvObject = nullptr;
+			return E_NOINTERFACE;
 		}
-
-		*ppvObject = nullptr;
-		return E_NOINTERFACE;
-	}
-};
-
+	};
+}

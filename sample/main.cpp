@@ -1,8 +1,8 @@
-#include <html_ui.hpp>
+#include <momo/html_ui.hpp>
 
 int APIENTRY WinMain(HINSTANCE, HINSTANCE, PSTR, int)
 {
-	html_ui window("Test", 500, 300);
+	momo::html_ui window("Test", 500, 300);
 
 	window.load_html(R"code(
 <!DOCTYPE html>
