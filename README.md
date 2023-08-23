@@ -34,13 +34,13 @@ int main()
 {
     momo::html_ui window("Test", 500, 300);
 
-    window.load_html("<!DOCTYPE html><html> ... </html>");
-
     window.register_handler("testFunction", [](const std::string& text) -> int
     {
 		// ...
 		return 15;
     });
+
+    window.load_html("<!DOCTYPE html><html> ... </html>");
 
     momo::html_ui::show_windows();
 }
