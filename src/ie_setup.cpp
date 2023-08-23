@@ -20,6 +20,12 @@ namespace momo
 			return {std::istreambuf_iterator<char>(ifs), std::istreambuf_iterator<char>()};
 		}
 
+		bool is_running_in_wine()
+		{
+			auto* ntdll = GetModuleHandleA("ntdll.dll");
+			return ntdll && GetProcAddress(ntdll, "wine_get_version");
+		}
+
 		PIMAGE_NT_HEADERS get_nt_headers(const HMODULE module)
 		{
 			if (!module)
@@ -239,6 +245,11 @@ namespace momo
 
 		void setup_ie_hooks()
 		{
+			if (is_running_in_wine())
+			{
+				return;
+			}
+
 			const auto urlmon = LoadLibraryA("urlmon.dll");
 			const auto target = get_iat_entry(urlmon, "iertutil.dll", MAKEINTRESOURCEA(700));
 
