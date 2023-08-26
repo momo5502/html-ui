@@ -10,6 +10,8 @@ namespace momo
 	}
 
 	html_ui::~html_ui() = default;
+	html_ui::html_ui(html_ui&&) noexcept = default;
+	html_ui& html_ui::operator=(html_ui&&) noexcept = default;
 
 	void html_ui::resize(const size_t width, const size_t height)
 	{

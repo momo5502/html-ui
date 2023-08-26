@@ -81,8 +81,9 @@ namespace momo
 
 		html_ui(const html_ui&) = delete;
 		html_ui& operator=(const html_ui&) = delete;
-		html_ui(html_ui&&) = delete;
-		html_ui& operator=(html_ui&&) = delete;
+
+		html_ui(html_ui&&) noexcept;
+		html_ui& operator=(html_ui&&) noexcept;
 
 		void resize(size_t width, size_t height);
 		bool load_url(const std::string& url);
