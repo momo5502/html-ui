@@ -27,7 +27,7 @@ jobs:
         run: cmake --build ${{github.workspace}}/build --config ${{matrix.configuration}}
 
       - name: Upload ${{matrix.configuration}} binaries
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: ${{matrix.configuration}} binaries
           path: |
