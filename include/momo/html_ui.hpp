@@ -33,15 +33,19 @@ namespace momo
 				}
 
 				size_t index = 0;
+				std::tuple args
+				{
+					resolve_html_value<std::remove_cv_t<std::remove_reference_t<Args>>>(args, index)...
+				};
 
 				if constexpr (std::is_same_v<Return, void>)
 				{
-					fun(resolve_html_value<std::remove_cv_t<std::remove_reference_t<Args>>>(args, index)...);
+					std::apply(fun, std::move(args));
 					return {};
 				}
 				else
 				{
-					auto ret = fun(resolve_html_value<std::remove_cv_t<std::remove_reference_t<Args>>>(args, index)...);
+					auto ret = std::apply(fun, std::move(args));
 					return html_value(std::move(ret));
 				}
 			};
