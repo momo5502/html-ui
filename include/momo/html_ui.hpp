@@ -92,6 +92,8 @@ namespace momo
 		void resize(size_t width, size_t height);
 		bool load_url(const std::string& url);
 		bool load_html(const std::string& html);
+		
+		void close() const;
 
 		html_value evaluate(const std::string& javascript) const;
 

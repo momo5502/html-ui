@@ -33,6 +33,11 @@ namespace momo
 		window::run();
 	}
 
+	void html_ui::close() const
+	{
+		this->window_->get_window().close();
+	}
+
 	html_value html_ui::evaluate(const std::string& javascript) const
 	{
 		return this->window_->get_html_frame().evaluate(javascript);
