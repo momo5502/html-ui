@@ -18,8 +18,8 @@ namespace momo
 		template <typename T>
 		static T resolve_html_value(const std::vector<html_value>& args, size_t& index)
 		{
-			const auto current_index = ++index;
-			return args.at(args.size() - current_index).as<T>();
+			const auto current_index = index++;
+			return args.at(current_index).as<T>();
 		}
 
 		template <typename F, typename Return, typename... Args>
