@@ -69,7 +69,7 @@ namespace momo
 		return *this;
 	}
 
-	void html_value::move_to(VARIANT& var, bool is_initialized)
+	void html_value::move_to(VARIANT& var, const bool is_initialized)
 	{
 		if (is_initialized)
 		{
@@ -82,7 +82,7 @@ namespace momo
 		VariantInit(this_variant);
 	}
 
-	void html_value::move_to(VARIANT* var, bool is_initialized)
+	void html_value::move_to(VARIANT* var, const bool is_initialized)
 	{
 		if (var)
 		{
