@@ -28,6 +28,16 @@ namespace momo
 
 			return get_dpi(window);
 		}
+
+		std::wstring convert_utf8_to_wide(const std::string& str)
+		{
+			const auto count = MultiByteToWideChar(CP_UTF8, 0, str.data(), static_cast<int>(str.size()), nullptr, 0);
+
+			std::wstring wstr(count, 0);
+			MultiByteToWideChar(CP_UTF8, 0, str.data(), static_cast<int>(str.size()), wstr.data(), count);
+
+			return wstr;
+		}
 	}
 
 	window::window(const std::string& title, const int width, const int height,
@@ -37,27 +47,26 @@ namespace momo
 	{
 		ZeroMemory(&this->wc_, sizeof(this->wc_));
 
-		this->classname_ = "window-base-" + std::to_string(time(nullptr));
+		this->classname_ = L"window-base-" + std::to_wstring(time(nullptr));
 
 		this->wc_.cbSize = sizeof(this->wc_);
 		this->wc_.style = CS_HREDRAW | CS_VREDRAW;
-		this->wc_.lpfnWndProc = static_processor;
-		this->wc_.hInstance = GetModuleHandle(nullptr);
-		this->wc_.hCursor = LoadCursor(nullptr, IDC_ARROW);
-		this->wc_.hIcon = LoadIcon(this->wc_.hInstance, MAKEINTRESOURCE(102));
+		this->wc_.lpfnWndProc = &static_processor;
+		this->wc_.hInstance = GetModuleHandleA(nullptr);
+		this->wc_.hCursor = LoadCursorA(nullptr, IDC_ARROW);
+		this->wc_.hIcon = LoadIconW(this->wc_.hInstance, MAKEINTRESOURCEW(102));
 		this->wc_.hIconSm = this->wc_.hIcon;
 		this->wc_.hbrBackground = reinterpret_cast<HBRUSH>(COLOR_WINDOW);
 		this->wc_.lpszClassName = this->classname_.data();
-		RegisterClassEx(&this->wc_);
+		RegisterClassExW(&this->wc_);
 
 		const auto x = (GetSystemMetrics(SM_CXSCREEN) - width) / 2;
 		const auto y = (GetSystemMetrics(SM_CYSCREEN) - height) / 2;
 
 		++window_count;
 
-		this->handle_ = CreateWindowExA(NULL, this->wc_.lpszClassName, title.data(), flags, x, y, width, height,
-		                                nullptr,
-		                                nullptr, this->wc_.hInstance, this);
+		this->handle_ = CreateWindowExW(NULL, this->wc_.lpszClassName, convert_utf8_to_wide(title).data(), flags, x, y,
+		                                width, height, nullptr, nullptr, this->wc_.hInstance, this);
 
 		constexpr BOOL value = TRUE;
 		DwmSetWindowAttribute(this->handle_,
@@ -71,7 +80,7 @@ namespace momo
 	window::~window()
 	{
 		this->close();
-		UnregisterClass(this->wc_.lpszClassName, this->wc_.hInstance);
+		UnregisterClassW(this->wc_.lpszClassName, this->wc_.hInstance);
 	}
 
 	void window::close()
@@ -85,10 +94,10 @@ namespace momo
 	void window::run()
 	{
 		MSG msg{};
-		while (GetMessage(&msg, nullptr, 0, 0))
+		while (GetMessageW(&msg, nullptr, 0, 0))
 		{
 			TranslateMessage(&msg);
-			DispatchMessage(&msg);
+			DispatchMessageW(&msg);
 		}
 	}
 
@@ -133,7 +142,7 @@ namespace momo
 			}
 		}
 
-		return DefWindowProc(*this, message, w_param, l_param);
+		return DefWindowProcW(*this, message, w_param, l_param);
 	}
 
 	LRESULT CALLBACK window::static_processor(const HWND hwnd, const UINT message, const WPARAM w_param,
@@ -142,15 +151,15 @@ namespace momo
 		if (message == WM_CREATE)
 		{
 			auto* data = reinterpret_cast<LPCREATESTRUCT>(l_param);
-			SetWindowLongPtrA(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(data->lpCreateParams));
+			SetWindowLongPtrW(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(data->lpCreateParams));
 
 			static_cast<window*>(data->lpCreateParams)->handle_ = hwnd;
 		}
 
-		const auto self = reinterpret_cast<window*>(GetWindowLongPtr(hwnd, GWLP_USERDATA));
+		const auto self = reinterpret_cast<window*>(GetWindowLongPtrW(hwnd, GWLP_USERDATA));
 		if (self) return self->processor(message, w_param, l_param);
 
-		return DefWindowProc(hwnd, message, w_param, l_param);
+		return DefWindowProcW(hwnd, message, w_param, l_param);
 	}
 
 	window::operator HWND() const

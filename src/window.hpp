@@ -28,9 +28,9 @@ namespace momo
 	private:
 		uint32_t last_dpi_ = 96;
 
-		WNDCLASSEX wc_{};
+		WNDCLASSEXW wc_{};
 		HWND handle_ = nullptr;
-		std::string classname_;
+		std::wstring classname_;
 		std::function<std::optional<LRESULT>(window*, UINT, WPARAM, LPARAM)> callback_;
 
 		static LRESULT CALLBACK static_processor(HWND hwnd, UINT message, WPARAM w_param, LPARAM l_param);

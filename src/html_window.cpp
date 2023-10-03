@@ -22,7 +22,7 @@ namespace momo
 		return this->frame_;
 	}
 
-	std::optional<LRESULT> html_window::processor(const UINT message, const WPARAM w_param, const LPARAM l_param)
+	std::optional<LRESULT> html_window::processor(const UINT message, const WPARAM /*w_param*/, const LPARAM l_param)
 	{
 		if (message == WM_SIZE)
 		{
