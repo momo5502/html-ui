@@ -38,6 +38,8 @@ namespace momo
 					resolve_html_value<std::remove_cv_t<std::remove_reference_t<Args>>>(args, index)...
 				};
 
+				(void)index;
+
 				if constexpr (std::is_same_v<Return, void>)
 				{
 					std::apply(fun, std::move(func_args));
