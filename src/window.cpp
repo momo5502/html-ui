@@ -41,6 +41,14 @@ namespace momo
 	}
 
 	window::window(const std::string& title, const int width, const int height,
+		std::function<std::optional<LRESULT>(window*, UINT, WPARAM, LPARAM)> callback,
+		const long flags)
+		: window(convert_utf8_to_wide(title), width, height,std::move(callback), flags)
+	{
+
+	}
+
+	window::window(const std::wstring& title, const int width, const int height,
 	               std::function<std::optional<LRESULT>(window*, UINT, WPARAM, LPARAM)> callback,
 	               const long flags)
 		: callback_(std::move(callback))
@@ -65,7 +73,7 @@ namespace momo
 
 		++window_count;
 
-		this->handle_ = CreateWindowExW(NULL, this->wc_.lpszClassName, convert_utf8_to_wide(title).data(), flags, x, y,
+		this->handle_ = CreateWindowExW(NULL, this->wc_.lpszClassName, title.data(), flags, x, y,
 		                                width, height, nullptr, nullptr, this->wc_.hInstance, this);
 
 		constexpr BOOL value = TRUE;

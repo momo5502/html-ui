@@ -15,6 +15,10 @@ namespace momo
 		       std::function<std::optional<LRESULT>(window*, UINT, WPARAM, LPARAM)> callback,
 		       long flags = (WS_OVERLAPPEDWINDOW & ~(WS_THICKFRAME | WS_MAXIMIZEBOX)));
 
+		window(const std::wstring& title, int width, int height,
+			std::function<std::optional<LRESULT>(window*, UINT, WPARAM, LPARAM)> callback,
+			long flags = (WS_OVERLAPPEDWINDOW & ~(WS_THICKFRAME | WS_MAXIMIZEBOX)));
+
 		virtual ~window();
 
 		void close();

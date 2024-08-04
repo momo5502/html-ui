@@ -9,6 +9,11 @@ namespace momo
 	{
 	}
 
+	html_ui::html_ui(const std::wstring& title, const size_t width, const size_t height)
+		: window_(std::make_unique<html_window>(title, static_cast<int>(width), static_cast<int>(height)))
+	{
+	}
+
 	html_ui::~html_ui() = default;
 	html_ui::html_ui(html_ui&&) noexcept = default;
 	html_ui& html_ui::operator=(html_ui&&) noexcept = default;

@@ -83,6 +83,7 @@ namespace momo
 	{
 	public:
 		html_ui(const std::string& title, size_t width, size_t height);
+		html_ui(const std::wstring& title, size_t width, size_t height);
 		~html_ui();
 
 		html_ui(const html_ui&) = delete;
